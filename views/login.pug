@@ -1,0 +1,22 @@
+extends base
+
+block vars
+ - let title = "Login"
+
+block body
+  h3 Login into your Account
+  if error 
+    p ERROR: #{error}
+
+  form(action="", method="post")
+    span Email:
+    input(type="email", name="email", required="true")
+    br
+
+    span Password:
+    input(type="password", name="pword", required="true")
+    br
+
+    input(type="submit")
+
+  p Back to #[a(href="/") home]
