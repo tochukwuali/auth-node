@@ -1,21 +1,28 @@
 const express = require('express')
-const app = express()
-const pug = require('pug')
+const dotenv = require('dotenv')
+const morgan = require('morgan')
+const connectDB= require('./config/db')
+const userRoute = require('./routes/users.js')
+
+dotenv.config({path: 'config/config.env' })
+
+connectDB()
+
+const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'))
+}
+
+app.use(express.urlencoded({extended: false}))
+app.use(express.json());
 
 app.set("view engine", "pug")
 
-app.get('/', (req, res) => {
-    res.render("index")
-})
+app.use('/', userRoute)
 
-app.get('/register', (req, res) => {
-    res.render("register")
-})
+const PORT = process.env.PORT
 
-app.get('/login', (req, res) => {
-    res.render("login")
-})
-
-app.listen(8000, () => {
-    console.log("Server is running on port 8000")
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`)
 })
