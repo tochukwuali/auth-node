@@ -8,7 +8,7 @@ block body
   if error 
     p ERROR: #{error}
 
-  form(action="", method="post")
+  form(action="/login", method="post")
     span Email:
     input(type="email", name="email", required="true")
     br
