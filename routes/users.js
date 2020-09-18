@@ -48,7 +48,7 @@ Router
             await User.findOne({ email: req.body.email }).then((user) => {
                  // Check if user exists
                 if (!user) {
-                return res.status(404).json({ emailnotfound: "Email not found" });
+                return res.status(404).render("login", { error: "Email not found" });
                 }  
 
                 if (!bcrypt.compareSync(req.body.password, user.password)) {
@@ -89,7 +89,7 @@ Router
     })
 
     Router
-        .route('/logout')
+        .route('/dashboard')
         .delete(async ({session}, res, next) => {
             try {
               const user = session.user;
